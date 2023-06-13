@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #08122e;
+        }
+
+        .container {
+            width: 1880px;
+            /* height: 1080px; */
+            /* border: 1px solid red; */
+            margin: 0 auto;
+        }
+
+        .container-title {
+            height: 100px;
+            /* border: 1px solid black; */
+        }
+
+        .container-title .title {
+            line-height: 100px;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+        }
+
+        /* .container-body {
+            height: 720px;
+             border: 1px solid red;
+        } */
+
+        .container-body .row {
+            height: 280px;
+            margin-top: 15px;
+            /* border: 2px solid blue; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .container-body .row .chart {
+            width: 430px;
+            height: 280px;
+            /* background-color: #ff9700; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-max {
+            width: 915px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .container-body .chart-title {
+            height: 40px;
+            border: 1px solid #0e3056;
+            line-height: 40px;
+            background: linear-gradient(to right, #083159 0, #0a1532 100%);
+            position: relative;
+        }
+
+        .angle {
+            width: 5px;
+            height: 5px;
+            border: solid #46c3ff;
+            position: absolute;
+        }
+
+        .angle-top {
+            border-width: 1px 0 0 1px;
+            left: -1px;
+            top: -1px;
+        }
+
+        .angle-right {
+            border-width: 1px 1px 0 0;
+            right: -1px;
+            top: -1px;
+        }
+
+        .angle-bottom {
+            border-width: 0 1px 1px 0;
+            right: -1px;
+            bottom: -1px;
+        }
+
+        .angle-left {
+            border-width: 0 0 1px 1px;
+            left: -1px;
+            bottom: -1px;
+        }
+
+        .angle-10 {
+            width: 10px;
+            height: 10px;
+            border: solid #46c3ff;
+            position: absolute;
+        }
+
+        .angle-top-2 {
+            border-width: 2px 0 0 2px;
+            left: -2px;
+            top: -2px;
+        }
+
+        .angle-right-2 {
+            border-width: 2px 2px 0 0;
+            right: -2px;
+            top: -2px;
+        }
+
+        .angle-bottom-2 {
+            border-width: 0 2px 2px 0;
+            right: -2px;
+            bottom: -2px;
+        }
+
+        .angle-left-2 {
+            border-width: 0 0 2px 2px;
+            left: -2px;
+            bottom: -2px;
+        }
+
+        .container-body .chart-title .title {
+            margin-left: 10px;
+            color: #acc3e0;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .container-body .chart-body {
+            height: 230px;
+            border: 2px solid #1d4d74;
+            position: relative;
+        }
+
+        .chart-container {
+            width: 450px;
+            height: 230px;
+        }
+
+        /* 区域 */
+        #region {
+            height: 100%;
+        }
+
+        /*  */
+        /* 年龄,在线用户统计,上网时段偏好,上网时段趋势 */
+        #sex,
+        #count,
+        #time,
+        #timeTrends {
+            height: 100%;
+        }
+
+        table {
+            border: 2px solid #1d4d74;
+            border-spacing: 0 10px;
+            height: 230px;
+        }
+
+        th,
+        td {
+            width: 430px;
+            /* height: 230px; */
+            /* border: 2px solid #1d4d74; */
+        }
+
+        th {
+            color: #a1b3c4;
+        }
+
+        td {
+            color: #3e93c8;
+            text-align: center;
+        }
+
+        .td-num {
+            background-color: #26defd;
+            color: #0e1631;
+            padding: 0 10px;
+            border-radius: 8px;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #0f3058;
+        }
+
+        tr:first-child {
+            background-color: #09122e;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2. 定义容器 -->
+    <div class="container">
+        <div class="container-title">
+            <div class="title">光电宽带大数据分析</div>
+        </div>
+        <div class="container-body">
+            <div class="row">
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">性别</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="sex"></div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">年龄</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div class="chart-container" id="age"></div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">区域</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="region">
+                        </div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">家庭特征</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div class="chart-container" id="family"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">上网时段偏好</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="time">
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-max">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">上网时段趋势</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="timeTrends"></div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">在线用户统计</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="count"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">视频网站偏好</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="">
+                            <table>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>网站域名</th>
+                                    <th>点击量</th>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">1</span></td>
+                                    <td>爱奇艺</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">2</span></td>
+                                    <td>腾讯视频</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">3</span></td>
+                                    <td>哔哩哔哩</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">4</span></td>
+                                    <td>优酷网</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">5</span></td>
+                                    <td>乐视网</td>
+                                    <td>1580000</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">电商网站偏好</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="">
+                            <table>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>网站域名</th>
+                                    <th>点击量</th>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">1</span></td>
+                                    <td>爱奇艺</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">2</span></td>
+                                    <td>腾讯视频</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">3</span></td>
+                                    <td>哔哩哔哩</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">4</span></td>
+                                    <td>优酷网</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">5</span></td>
+                                    <td>乐视网</td>
+                                    <td>1580000</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">社交媒介偏好</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="">
+                            <table>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>网站域名</th>
+                                    <th>点击量</th>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">1</span></td>
+                                    <td>爱奇艺</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">2</span></td>
+                                    <td>腾讯视频</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">3</span></td>
+                                    <td>哔哩哔哩</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">4</span></td>
+                                    <td>优酷网</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">5</span></td>
+                                    <td>乐视网</td>
+                                    <td>1580000</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="chart-title">
+                        <div class="angle angle-top"></div>
+                        <div class="angle angle-right"></div>
+                        <div class="angle angle-bottom"></div>
+                        <div class="angle angle-left"></div>
+                        <div class="title">网络游戏偏好</div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="angle-10 angle-top-2"></div>
+                        <div class="angle-10 angle-right-2"></div>
+                        <div class="angle-10 angle-bottom-2"></div>
+                        <div class="angle-10 angle-left-2"></div>
+                        <div id="">
+                            <table>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>网站域名</th>
+                                    <th>点击量</th>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">1</span></td>
+                                    <td>爱奇艺</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">2</span></td>
+                                    <td>腾讯视频</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">3</span></td>
+                                    <td>哔哩哔哩</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">4</span></td>
+                                    <td>优酷网</td>
+                                    <td>1580000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="td-num">5</span></td>
+                                    <td>乐视网</td>
+                                    <td>1580000</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.1/echarts.min.js"></script>
+    <script src="./js/ageChart.js"></script>
+    <script src="./js/family.js"></script>
+    <script src="./js/region.js"></script>
+    <script src="./js/Internet-time-preference.js"></script>
+    <script src="./js/timeTrends.js"></script>
+    <script src="./js/sex.js"></script>
+    <script src="./js/count.js"></script>
+</body>
+
+</html>
